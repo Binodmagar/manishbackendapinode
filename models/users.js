@@ -11,13 +11,20 @@ const userSchema = new mongoose.Schema({
     },
     mobileNumber:{
         type: Number,
+        min: 10, 
+        max: 10,
         required: true
     },
     email:{
-        type: email,
+        type: String,
         required: true
     },
     password:{
+        type: String,
+        max: 6,
+        required: true
+    },
+    image:{
         type: String,
         required: true
     }
