@@ -1,0 +1,29 @@
+{
+  "name": "expensemanagerapis",
+  "version": "1.0.0",
+  "description": "This is apis for expense manager application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/softwarica-github/t2-backend-api-Binodmagar.git"
+  },
+  "author": "BinodRana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/softwarica-github/t2-backend-api-Binodmagar/issues"
+  },
+  "homepage": "https://github.com/softwarica-github/t2-backend-api-Binodmagar#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.9",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2"
+  }
+}
