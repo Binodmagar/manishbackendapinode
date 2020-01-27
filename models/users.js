@@ -10,19 +10,21 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     mobileNumber:{
-        type: Number,
-        min: 10, 
-        max: 10,
+        type: String,
         required: true
     },
     email:{
         type: String,
+        unique: true,
         required: true
     },
     password:{
         type: String,
-        max: 6,
         required: true
+    },
+    agree:{
+        type:Boolean,
+        default: false
     },
     image:{
         type: String,
