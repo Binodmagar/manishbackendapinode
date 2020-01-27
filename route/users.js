@@ -13,7 +13,6 @@ router.post('/register',(req,res,next) => {
             error.status = 501;
             console.log(error);
             
-            
             return next(error);
         
         }
@@ -23,6 +22,7 @@ router.post('/register',(req,res,next) => {
             mobileNumber: req.body.mobileNumber,
             email: req.body.email,
             password: hash,
+            agree: req.body.agree,
             image:req.body.image
         })
         .then((user) => {
@@ -45,9 +45,13 @@ router.post('/login', (req, res, next) => {
         else{
             bcrypt.compare(req.body.password, user.password)
             .then((isMatch) => {
+
                 console.log(req.body.password);
                 console.log(user.password);
+                console.log(isMatch);
+                
                 if(!isMatch) {
+                console.log(isMatch);
                     let error = new Error('Sorry, password does not match!!');
                     error.status = 409;
                     return next(error);
