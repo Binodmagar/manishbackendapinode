@@ -37,7 +37,7 @@ router.route('/')
     });
 });
 
-router.route("/expenses/:id")
+router.route("/:id")
 .delete(function(req, res){
     Expense.deleteOne(
         {id: req.params.id})
@@ -51,10 +51,10 @@ router.route("/expenses/:id")
         })
 });
 
-router.route("/expenses/:id")
+router.route("/:id")
 .put(function(req,res){
     Expense.findByIdAndUpdate(
-        req.params.id,
+        {_id:req.params.id},
         {$set:req.body})
         .then(function(result){
             if(result === 0){
