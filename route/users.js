@@ -22,11 +22,11 @@ router.post('/register',(req,res,next) => {
             mobileNumber: req.body.mobileNumber,
             email: req.body.email,
             password: hash,
-            agree: req.body.agree,
             image:req.body.image
         })
         .then((user) => {
             let token = jwt.sign({_id: user._id}, process.env.SECRET);
+            res.status(201);
             res.json({status: "Register successfully!!", token: token});
         })
         .catch(next);
@@ -71,8 +71,14 @@ router.get('/me', auth.checkUser, (req, res, next) => {
     res.json({
         _id: req._id,
         firstName: req.user.firstName,
-        email: req.body.email,
+        lastName: req.user.lastName,
+        mobileNumber: req.user.mobileNumber,
+        email: req.user.email,
+        password:req.user.password,
         image: req.user.image
+
+
+
     });
 });
 

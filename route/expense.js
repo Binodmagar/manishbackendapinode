@@ -1,12 +1,14 @@
 const express = require('express');
 const Expense = require('../models/expense');
-
+const auth = require('../auth');
 
 const router = express.Router();
 
 router.route('/')
-.get(function(req,res, next){
-    Expense.find({})
+.get(auth.checkUser, function (req, res, next) {
+    Expense.find({
+        users: req.user._id
+    })
     .then(function(result){
         console.log(result);
         res.status(201);
@@ -17,19 +19,14 @@ router.route('/')
         res.json(err);
     });
 })
-.post(function(req,res){
-    Expense.create({
-        name: req.body.name,
-        amount: req.body.amount,
-        category: req.body.category,
-        account: req.body.account,
-        date: req.body.date,
-        description: req.body.description
-    })
+.post(auth.checkUser, (req, res, next) => {
+    let newExpense = new Expense(req.body);
+    newExpense.users = req.user._id;
+    newExpense.save()
     .then(function(result){
         console.log(result);
         res.status(201);
-        res.json({status:201, message:"expense added successfully!"})
+        res.json({status: "Expense added successfully!!"})
     })
     .catch(function(err){
         console.log(err);
@@ -38,55 +35,41 @@ router.route('/')
 });
 
 router.route("/:id")
-.delete(function(req, res){
-    Expense.deleteOne(
-        {id: req.params.id})
-        .then(function(result){
-            res.status(200);
-            res.json({status:200, message: "expenses deleted successfully!!"});
+    .delete(auth.checkUser, function (req, res) {
+        Expense.deleteOne({
+            users: req.user._id
         })
-        .catch(function(err){
-            console.log(err);
-            res.json(err);
-        })
-});
+            .then(function (result) {
+                res.status(200);
+                res.json({ status: 200, message: "Expense deleted successfully!!" });
+            })
+            .catch(function (err) {
+                console.log(err);
+                res.json(err);
+            })
+    });
 
 router.route("/:id")
-.put(function(req,res){
-    Expense.findByIdAndUpdate(
-        {_id:req.params.id},
-        {$set:req.body})
-        .then(function(result){
-            if(result === 0){
-                console.log(result);
-                res.status(500);
-                res.json({status: 500, message: 'couldnot update expenses'});
-            }else{
-                res.status(200);
-                res.json({status:200, message: 'expenses update' });
-            }
-        })
-        .catch(function(err){
-            console.log(err);
-            res.json(err);            
-        })
-});
-
-router.route('/expenses/:id')
-.get(function(req, res){
-    Expense.findOne({id: req.body.id})
-    .then(function(result){
-        console.log(result);
-        res.status(201);
-        res.json({status: 201, message: "Data get succssfully!!"});
-        
-    })
-    .catch(function(err){
-        console.log(err);
-        res.send("Expenses cannot found")
-        
-    })
-});
+    .put(auth.checkUser, function (req, res) {
+        Expense.findByIdAndUpdate(
+            { _id: req.params.id },
+            { $set: req.body })
+            .then(function (result) {
+                if (result === 0) {
+                    console.log(result);
+                    res.status(500);
+                    //res.json({ status: 500, message: 'Cannot update expense ' });
+                } else {
+                    res.status(200);
+                    res.json(result);
+                    //res.json({ status: 200, message: 'Expenses updated!!' });
+                }
+            })
+            .catch(function (err) {
+                console.log(err);
+                res.json(err);
+            })
+    });
 
 module.exports = router;
 

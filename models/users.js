@@ -22,10 +22,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    agree:{
-        type:Boolean,
-        default: false
-    },
     image:{
         type: String,
         required: true
