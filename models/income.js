@@ -17,15 +17,7 @@ const incomeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    days: {
-        type: String,
-        required: true
-    },
-    months:{
-        type: String,
-        required: true
-    },
-    years: {
+    date: {
         type: String,
         required: true
     },
