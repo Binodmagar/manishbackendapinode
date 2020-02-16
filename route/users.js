@@ -82,6 +82,7 @@ router.post('/login', (req, res, next) => {
                     return next(error);
                 }
                     let token = jwt.sign({_id: user._id}, process.env.SECRET);
+                    res.status(201)
                     res.json({status: 'Login success', token: token});
                 
                 
@@ -98,3 +99,128 @@ router.get('/me', auth.checkUser, (req, res, next) => {
 
 
 module.exports = router;
+
+
+//documenation of register
+/**
+* @swagger
+* /users/register:
+*  post:
+*   tags:
+*    - User register
+*   description: User registration testing
+*   produces:
+*    - application/json
+*   consumes:
+*    - application/x-www-form-urlencoded
+*   parameters:
+*    - name: firstName
+*      in: formData
+*      type: string
+*      required: true
+*      description: Please provide first name
+*    - name: lastName
+*      in: formData
+*      type: string
+*      required: true
+*      description: Please provide last name
+*    - name: mobileNumber
+*      in: formData
+*      type: number
+*      required: true
+*      description: Please provide mobile number
+*    - name: email
+*      in: formData
+*      type: string
+*      required: true
+*      description: Please provide unique email address
+*    - name: password
+*      in: formData
+*      type: string
+*      required: true
+*      description: Please provide of minimum of 5 character password
+*   responses:
+*    201:
+*     description: registered sucessfully
+*    409:
+*     description: user already exits
+*    500:
+*     description: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvYmVydCIsInVzZXJMZXZlbCI6InN1cGVyYWRtaW4iLCJpYXQiOjE1NzY3MjQxNDIsImV4cCI6MTU3Njc2MDE0Mn0.IxDHZmsvG88ILGxvQU0NhI-E8qlET1sDGQaWWWxnOLsinternal server errors
+*/
+
+
+//user login
+/**
+* @swagger
+* /users/login:
+*  post:
+*   tags:
+*    - Login user
+*   description: User login testing
+*   produces:
+*    - application/json
+*   consumes:
+*    - application/x-www-form-urlencoded
+*   parameters:
+*    - name: email
+*      in: formData
+*      type: string
+*      required: true
+*      description: Please provide  email
+*    - name: password
+*      in: formData
+*      type: string
+*      required: true
+*      description: Please provide  password
+*   responses:
+*    201:
+*     description: registered sucessfully
+*    406:
+*     description: username and password required
+*/
+
+/**
+* @swagger
+* /users/me:
+*  put:
+*   tags:
+*    - User Update
+*   description: User update testing
+*   produces:
+*    - application/json
+*   consumes:
+*    - application/x-www-form-urlencoded
+ *   security:
+ *    - bearerAuth: []
+*   parameters:
+*    - name: firstName
+*      in: formData
+*      type: string
+*      required: true
+*      description: Please provide first name
+*    - name: lastName
+*      in: formData
+*      type: string
+*      required: true
+*      description: Please provide last name
+*    - name: mobileNumber
+*      in: formData
+*      type: number
+*      required: true
+*      description: Please provide mobile number
+*    - name: email
+*      in: formData
+*      type: string
+*      required: true
+*      description: Please provide unique email address
+*    - name: password
+*      in: formData
+*      type: string
+*      required: true
+*      description: Please provide of minimum of 5 character password
+*   responses:
+*    201:
+*     description: user update sucessfully
+*    500:
+*     description: errors
+*/
