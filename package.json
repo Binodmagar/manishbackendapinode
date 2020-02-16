@@ -4,6 +4,7 @@
   "description": "This is apis for expense manager application",
   "main": "index.js",
   "scripts": {
+    "build": "nodemon index.js",
     "test": "mocha --recursive --timeout 150000 --exit"
   },
   "repository": {
